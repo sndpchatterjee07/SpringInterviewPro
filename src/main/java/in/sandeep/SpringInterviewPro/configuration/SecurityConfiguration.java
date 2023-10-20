@@ -15,16 +15,21 @@
  *  * limitations under the License.
  *
  */
-package in.sandeep.SpringInterviewPro;
+package in.sandeep.SpringInterviewPro.configuration;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
-public class SpringInterviewProApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run (SpringInterviewProApplication.class, args);
+@Configuration
+@EnableWebSecurity
+public class SecurityConfiguration {
+
+    @Bean
+    public SecurityFilterChain applicationSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        return httpSecurity.authorizeHttpRequests ((auth) -> auth.anyRequest ().permitAll ()).build ();
     }
 }
