@@ -17,6 +17,7 @@
  */
 package in.sandeep.SpringInterviewPro.controller;
 
+import in.sandeep.SpringInterviewPro.model.Docket;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,6 +32,7 @@ public class RoutingController implements ErrorController {
     @RequestMapping(value = "/createDocket", method = RequestMethod.GET)
     public ModelAndView getDocketCreationPage() {
         modelAndView.setViewName ("create_docket");
+        modelAndView.addObject ("docketInfo", new Docket ());
         return modelAndView;
     }
 
