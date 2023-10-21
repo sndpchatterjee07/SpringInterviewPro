@@ -100,7 +100,11 @@
         </select>
 
         <label for="purchaseOrder">Purchase Order:</label>
-        <input type="text" id="purchaseOrder" name="purchaseOrder" th:field="*{purchaseOrder}">
+        <!--<input type="text" id="purchaseOrder" name="purchaseOrder" th:field="*{purchaseOrder}">-->
+        <select id="selectpurchaseOrder" name="selectpurchaseOrder" th:field="*{purchaseOrder}">
+            <option value="0" selected="selected">-- PURCHASE ORDERS --</option>
+            <option th:each="option : ${purchaseOrders}" th:value="${option}" th:text="${option}"/>
+        </select>
 
         <input type="submit" value="Submit">
     </form>

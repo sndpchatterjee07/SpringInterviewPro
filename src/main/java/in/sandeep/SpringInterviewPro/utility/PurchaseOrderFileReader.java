@@ -27,7 +27,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The type PurchaseOrderFileReader.
@@ -37,9 +39,13 @@ import java.util.List;
  */
 public class PurchaseOrderFileReader {
 
-    private final Integer columnIndex = 11;
+    private final Integer supplierColumnIndex = 11;
+
+    private final Integer purchaseOrderNumberColumnIndex = 3;
 
     private List<String> suppliers;
+
+    private Map<String, String> supplierToPurchaseOrderNumbersMap;
 
     /**
      * Gets Supplier Names.
@@ -51,10 +57,11 @@ public class PurchaseOrderFileReader {
 
         InputStream inputStream = new FileInputStream ("/home/sandeep/11_Repositories/intellij-idea-workspace/SpringInterviewPro/src/main/resources/static/assets/export29913_FINAL.xls");
         suppliers = new ArrayList<String> ();
+
         Workbook workbook = new HSSFWorkbook (inputStream);
         HSSFSheet sheet = (HSSFSheet) workbook.getSheetAt (0);
         for (Row row : sheet) { // For each Row.
-            Cell cell = row.getCell (columnIndex); // Get the Cell at the Index/Column you want.
+            Cell cell = row.getCell (supplierColumnIndex); // Get the cell at the Supplier Index/Column.
             if (!suppliers.contains (cell.getStringCellValue ())) {
                 suppliers.add (cell.getStringCellValue ());
             }
@@ -62,5 +69,32 @@ public class PurchaseOrderFileReader {
         workbook.close ();
         inputStream.close ();
         return suppliers;
+    }
+
+
+    /**
+     * Gets supplierToPurchaseOrderNumbersMap.
+     *
+     * @return the SupplierToPurchaseOrderNumbersMap
+     * @throws IOException the IOException
+     */
+    public Map<String, String> getPurchaseOrderNumbersBySupplier() throws IOException {
+
+        InputStream inputStream = new FileInputStream ("/home/sandeep/11_Repositories/intellij-idea-workspace/SpringInterviewPro/src/main/resources/static/assets/export29913_FINAL.xls");
+        suppliers = new ArrayList<String> ();
+        supplierToPurchaseOrderNumbersMap = new HashMap<String, String> ();
+
+        Workbook workbook = new HSSFWorkbook (inputStream);
+        HSSFSheet sheet = (HSSFSheet) workbook.getSheetAt (0);
+        for (Row row : sheet) { // For each Row.
+            Cell cell = row.getCell (supplierColumnIndex); // Get the cell at the Supplier Index/Column.
+            if (!suppliers.contains (cell.getStringCellValue ())) {
+                suppliers.add (cell.getStringCellValue ());
+                supplierToPurchaseOrderNumbersMap.put (cell.getStringCellValue (), row.getCell (purchaseOrderNumberColumnIndex).getStringCellValue ());
+            }
+        }
+        workbook.close ();
+        inputStream.close ();
+        return supplierToPurchaseOrderNumbersMap;
     }
 }

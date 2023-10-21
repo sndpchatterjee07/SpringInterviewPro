@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The type RoutingController.
@@ -44,6 +45,8 @@ public class RoutingController implements ErrorController {
 
     private List<String> suppliers;
 
+    private Map<String, String> supplierToPurchaseOrderNumbersMap;
+
     private Docket docket;
 
 
@@ -57,11 +60,17 @@ public class RoutingController implements ErrorController {
     public ModelAndView getDocketCreationPage() throws IOException {
         purchaseOrderFileReader = new PurchaseOrderFileReader ();
         suppliers = purchaseOrderFileReader.getSuppliers ();
+        supplierToPurchaseOrderNumbersMap = purchaseOrderFileReader.getPurchaseOrderNumbersBySupplier ();
+
         docket = new Docket ();
         docket.setSupplierName (suppliers);
+        docket.setPurchaseOrder (supplierToPurchaseOrderNumbersMap);
+
         modelAndView.setViewName ("create_docket");
         modelAndView.addObject ("docketInfo", docket);
         modelAndView.addObject ("suppliers", docket.getSupplierName ());
+        modelAndView.addObject ("purchaseOrders", docket.getPurchaseOrder ().values ());
+
         return modelAndView;
     }
 
