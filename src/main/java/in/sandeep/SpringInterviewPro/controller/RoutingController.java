@@ -61,6 +61,7 @@ public class RoutingController implements ErrorController {
         docket.setSupplierName (suppliers);
         modelAndView.setViewName ("create_docket");
         modelAndView.addObject ("docketInfo", docket);
+        modelAndView.addObject ("suppliers", docket.getSupplierName ());
         return modelAndView;
     }
 

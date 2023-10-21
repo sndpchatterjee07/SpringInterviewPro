@@ -94,7 +94,10 @@
         <input type="number" id="ratePerHour" name="ratePerHour" th:field="*{ratePerHour}">
 
         <label for="supplierName">Supplier Name:</label>
-        <input type="text" id="supplierName" name="supplierName" th:field="*{supplierName}">
+        <select id="selectSupplier" name="selectSupplier" th:field="*{supplierName}">
+            <option value="0" selected="selected">-- LIST OF SUPPLIERS --</option>
+            <option th:each="option : ${suppliers}" th:value="${option}" th:text="${option}"/>
+        </select>
 
         <label for="purchaseOrder">Purchase Order:</label>
         <input type="text" id="purchaseOrder" name="purchaseOrder" th:field="*{purchaseOrder}">
