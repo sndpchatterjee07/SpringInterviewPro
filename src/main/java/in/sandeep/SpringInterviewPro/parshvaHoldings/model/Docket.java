@@ -15,7 +15,7 @@
  *  * limitations under the License.
  *
  */
-package in.sandeep.SpringInterviewPro.model;
+package in.sandeep.SpringInterviewPro.parshvaHoldings.model;
 
 import java.util.List;
 import java.util.Map;

@@ -15,7 +15,7 @@
  *  * limitations under the License.
  *
  */
-package in.sandeep.SpringInterviewPro.configuration;
+package in.sandeep.SpringInterviewPro.parshvaHoldings.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

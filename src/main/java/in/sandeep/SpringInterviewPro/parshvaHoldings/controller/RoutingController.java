@@ -15,10 +15,10 @@
  *  * limitations under the License.
  *
  */
-package in.sandeep.SpringInterviewPro.controller;
+package in.sandeep.SpringInterviewPro.parshvaHoldings.controller;
 
-import in.sandeep.SpringInterviewPro.model.Docket;
-import in.sandeep.SpringInterviewPro.utility.PurchaseOrderFileReader;
+import in.sandeep.SpringInterviewPro.parshvaHoldings.model.Docket;
+import in.sandeep.SpringInterviewPro.parshvaHoldings.utility.PurchaseOrderFileReader;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
