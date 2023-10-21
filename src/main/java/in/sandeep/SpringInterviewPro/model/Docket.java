@@ -17,6 +17,8 @@
  */
 package in.sandeep.SpringInterviewPro.model;
 
+import java.util.List;
+
 /**
  * The type Docket.
  *
@@ -38,7 +40,7 @@ public class Docket {
     private Double ratePerHour;
 
 
-    private String supplierName;
+    private List<String> supplierName;
 
 
     private String purchaseOrder;
@@ -84,11 +86,11 @@ public class Docket {
         this.ratePerHour = ratePerHour;
     }
 
-    public String getSupplierName() {
+    public List<String> getSupplierName() {
         return supplierName;
     }
 
-    public void setSupplierName(String supplierName) {
+    public void setSupplierName(List<String> supplierName) {
         this.supplierName = supplierName;
     }
 
@@ -98,19 +100,5 @@ public class Docket {
 
     public void setPurchaseOrder(String purchaseOrder) {
         this.purchaseOrder = purchaseOrder;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Docket{" +
-                "name='" + name + '\'' +
-                ", startTime='" + startTime + '\'' +
-                ", endTime='" + endTime + '\'' +
-                ", hoursWorked=" + hoursWorked +
-                ", ratePerHour=" + ratePerHour +
-                ", supplierName='" + supplierName + '\'' +
-                ", purchaseOrder='" + purchaseOrder + '\'' +
-                '}';
     }
 }

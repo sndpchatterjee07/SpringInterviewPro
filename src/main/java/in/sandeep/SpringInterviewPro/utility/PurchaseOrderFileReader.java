@@ -26,9 +26,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The type PurchaseOrderFileReader.
@@ -38,7 +37,9 @@ import java.util.Map;
  */
 public class PurchaseOrderFileReader {
 
-    private Map<String, String> suppliers;
+    private final Integer columnIndex = 11;
+
+    private List<String> suppliers;
 
     /**
      * Gets Supplier Names.
@@ -46,52 +47,20 @@ public class PurchaseOrderFileReader {
      * @return the Supplier Names
      * @throws IOException the IOException
      */
-    public Map<String, String> getSuppliers() throws IOException {
+    public List<String> getSuppliers() throws IOException {
 
         InputStream inputStream = new FileInputStream ("/home/sandeep/11_Repositories/intellij-idea-workspace/SpringInterviewPro/src/main/resources/static/assets/export29913_FINAL.xls");
-
-        suppliers = new HashMap<String, String> ();
-
+        suppliers = new ArrayList<String> ();
         Workbook workbook = new HSSFWorkbook (inputStream);
-
         HSSFSheet sheet = (HSSFSheet) workbook.getSheetAt (0);
-
-        Iterator<Row> iterator = sheet.iterator ();
-
-        // Iterating all the rows
-        while (iterator.hasNext ()) {
-            Row nextRow = iterator.next ();
-
-            Iterator<Cell> cellIterator = nextRow.cellIterator ();
-
-            // Iterating all the columns in a row
-            while (cellIterator.hasNext ()) {
-
-                Cell cell = cellIterator.next ();
-
-                switch (cell.getCellType ()) {
-                    case STRING:
-                        System.out.print (cell.getStringCellValue ());
-                        break;
-                    case BOOLEAN:
-                        System.out.print (cell.getBooleanCellValue ());
-                        break;
-                    case NUMERIC:
-                        System.out.print (cell.getNumericCellValue ());
-                        break;
-                    default:
-                        break;
-                }
-                System.out.print (" | ");
+        for (Row row : sheet) { // For each Row.
+            Cell cell = row.getCell (columnIndex); // Get the Cell at the Index/Column you want.
+            if (!suppliers.contains (cell.getStringCellValue ())) {
+                suppliers.add (cell.getStringCellValue ());
             }
-            System.out.println ();
         }
-
-        // Closing the workbook and input stream
         workbook.close ();
-
         inputStream.close ();
-
         return suppliers;
     }
 }
