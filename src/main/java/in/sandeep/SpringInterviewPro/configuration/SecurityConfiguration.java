@@ -24,10 +24,23 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 
 
+/**
+ * The type SecurityConfiguration.
+ *
+ * @author sandeep
+ * @version 1.0
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
+    /**
+     * Application Security Filter Chain.
+     *
+     * @param httpSecurity the http security
+     * @return the Security Filter Chain
+     * @throws Exception the exception
+     */
     @Bean
     public SecurityFilterChain applicationSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.authorizeHttpRequests ((auth) -> auth.anyRequest ().permitAll ()).build ();

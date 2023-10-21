@@ -21,9 +21,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
+/**
+ * The type SpringInterviewProApplication.
+ *
+ * @author sandeep
+ * @version 1.0
+ */
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class SpringInterviewProApplication {
-
     public static void main(String[] args) {
         SpringApplication.run (SpringInterviewProApplication.class, args);
     }

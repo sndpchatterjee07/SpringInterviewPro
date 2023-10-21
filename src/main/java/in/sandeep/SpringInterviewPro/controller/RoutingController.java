@@ -18,6 +18,7 @@
 package in.sandeep.SpringInterviewPro.controller;
 
 import in.sandeep.SpringInterviewPro.model.Docket;
+import in.sandeep.SpringInterviewPro.utility.PurchaseOrderFileReader;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,24 +26,56 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
+import java.util.Map;
+
+/**
+ * The type RoutingController.
+ *
+ * @author sandeep
+ * @version 1.0
+ */
 @RestController
 public class RoutingController implements ErrorController {
 
     private final ModelAndView modelAndView = new ModelAndView ();
 
+    private PurchaseOrderFileReader purchaseOrderFileReader;
+
+    private Map<String, String> suppliers;
+
+
+    /**
+     * Gets Docket Creation Form.
+     *
+     * @return the Docket Creation Form
+     * @throws IOException the IOException
+     */
     @RequestMapping(value = "/getDocketCreationForm", method = RequestMethod.GET)
-    public ModelAndView getDocketCreationPage() {
+    public ModelAndView getDocketCreationPage() throws IOException {
+        purchaseOrderFileReader = new PurchaseOrderFileReader ();
+        suppliers = purchaseOrderFileReader.getSuppliers ();
         modelAndView.setViewName ("create_docket");
         modelAndView.addObject ("docketInfo", new Docket ());
         return modelAndView;
     }
 
+    /**
+     * Handle Error.
+     *
+     * @return the Error Page
+     */
     @RequestMapping(value = "/error")
     public ModelAndView handleError() {
         modelAndView.setViewName ("error_page");
         return modelAndView;
     }
 
+    /**
+     * Create Docket.
+     *
+     * @param docketInfo the docketInfo
+     */
     @RequestMapping(value = "/createDocket", method = RequestMethod.POST)
     public void createDocket(@ModelAttribute Docket docketInfo) {
         modelAndView.addObject ("docketInfo", docketInfo);

@@ -17,6 +17,12 @@
  */
 package in.sandeep.SpringInterviewPro.model;
 
+/**
+ * The type Docket.
+ *
+ * @author sandeep
+ * @version 1.0
+ */
 public class Docket {
 
     private String name;
