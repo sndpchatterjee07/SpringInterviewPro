@@ -26,7 +26,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.ws.rs.QueryParam;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +47,7 @@ public class RoutingController implements ErrorController {
 
     private List<String> suppliers;
 
-    private Map<String, String> supplierToPurchaseOrderNumbersMap;
+    private List<String> supplierToPurchaseOrderNumbers;
 
     private Docket docket;
 
@@ -60,16 +62,13 @@ public class RoutingController implements ErrorController {
     public ModelAndView getDocketCreationPage() throws IOException {
         purchaseOrderFileReader = new PurchaseOrderFileReader ();
         suppliers = purchaseOrderFileReader.getSuppliers ();
-        supplierToPurchaseOrderNumbersMap = purchaseOrderFileReader.getPurchaseOrderNumbersBySupplier ();
 
         docket = new Docket ();
         docket.setSupplierName (suppliers);
-        docket.setPurchaseOrder (supplierToPurchaseOrderNumbersMap);
 
         modelAndView.setViewName ("create_docket");
         modelAndView.addObject ("docketInfo", docket);
         modelAndView.addObject ("suppliers", docket.getSupplierName ());
-        modelAndView.addObject ("purchaseOrders", docket.getPurchaseOrder ().values ());
 
         return modelAndView;
     }
@@ -96,4 +95,20 @@ public class RoutingController implements ErrorController {
         //System.out.println (docketInfo.getStartTime ());
     }
 
+
+    /**
+     * Handle the asynchronous request to get the PONumber for the selected Supplier.
+     *
+     * @param param1 the selected Supplier.
+     * @return the list of PONumbers
+     * @throws IOException the IOException
+     */
+    @RequestMapping(value = "/getPONumber", method = RequestMethod.GET)
+    public List<String> getPONumber(@QueryParam("param1") String param1) throws IOException {
+        String selectedSupplierName = param1;
+        List<String> poNumbers = new ArrayList<String> ();
+        purchaseOrderFileReader = new PurchaseOrderFileReader ();
+        supplierToPurchaseOrderNumbers = purchaseOrderFileReader.getPurchaseOrderNumbersBySupplier (selectedSupplierName);
+        return poNumbers;
+    }
 }

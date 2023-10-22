@@ -25,6 +25,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Create Docket</title>
+    <script type="text/javascript" th:src="@{/js/docketCreationEventHandlers.js}"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -93,15 +94,17 @@
         <label for="ratePerHour">Rate per hour:</label>
         <input type="number" id="ratePerHour" name="ratePerHour" th:field="*{ratePerHour}">
 
+        <!--<button type="button" th:onclick="showAlert()">Show Alert</button>-->
+
         <label for="supplierName">Supplier Name:</label>
-        <select id="selectSupplier" name="selectSupplier" th:field="*{supplierName}">
+        <select id="selectSupplier" name="selectSupplier" th:field="*{supplierName}"
+                onchange="getSelectedSupplier(this.value)">
             <option value="0" selected="selected">-- LIST OF SUPPLIERS --</option>
             <option th:each="option : ${suppliers}" th:value="${option}" th:text="${option}"/>
         </select>
 
         <label for="purchaseOrder">Purchase Order:</label>
-        <!--<input type="text" id="purchaseOrder" name="purchaseOrder" th:field="*{purchaseOrder}">-->
-        <select id="selectpurchaseOrder" name="selectpurchaseOrder" th:field="*{purchaseOrder}">
+        <select id="selectpurchaseOrder" name="selectpurchaseOrder" th:field="*{purchaseOrders}">
             <option value="0" selected="selected">-- PURCHASE ORDERS --</option>
             <option th:each="option : ${purchaseOrders}" th:value="${option}" th:text="${option}"/>
         </select>

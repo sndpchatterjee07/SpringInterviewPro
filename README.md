@@ -25,7 +25,7 @@ git clone https://github.com/sndpchatterjee07/SpringInterviewPro.git
 
 - **Solution**
 
-  Rest API Endpoint : `http://localhost:8080/getDocketCreationForm`
+  - Rest API Endpoint : `http://localhost:8080/getDocketCreationForm`
     
   ```
   InputStream inputStream = new FileInputStream ("/resources/static/assets/export29913_FINAL.xls");
@@ -40,19 +40,44 @@ git clone https://github.com/sndpchatterjee07/SpringInterviewPro.git
     public ModelAndView getDocketCreationPage() throws IOException {
         purchaseOrderFileReader = new PurchaseOrderFileReader ();
         suppliers = purchaseOrderFileReader.getSuppliers ();
-        supplierToPurchaseOrderNumbersMap = purchaseOrderFileReader.getPurchaseOrderNumbersBySupplier ();
 
         docket = new Docket ();
         docket.setSupplierName (suppliers);
-        docket.setPurchaseOrder (supplierToPurchaseOrderNumbersMap);
 
         modelAndView.setViewName ("create_docket");
         modelAndView.addObject ("docketInfo", docket);
         modelAndView.addObject ("suppliers", docket.getSupplierName ());
-        modelAndView.addObject ("purchaseOrders", docket.getPurchaseOrder ().values ());
 
         return modelAndView;
     }
-  ```  
-  All the codebase for this challenge is located within package `in.sandeep.SpringInterviewPro.parshvaHoldings`.
+  ``` 
+
+ - Handle the asynchronous request to get the PONumber for the selected Supplier. 
+
+```
+var url = "http://localhost:8080/getPONumber";
+var param = "param1="+supplier;
+url = url + "?" + param;
+xhr.open("GET", url, true);
+...
+xhr.send();
+
+/**
+     * Handle the asynchronous request to get the PONumber for the selected Supplier.
+     *
+     * @param param1 the selected Supplier.
+     * @return the list of PONumbers
+     * @throws IOException the IOException
+     */
+    @RequestMapping(value = "/getPONumber", method = RequestMethod.GET)
+    public List<String> getPONumber(@QueryParam("param1") String param1) throws IOException {
+        String selectedSupplierName = param1;
+        List<String> poNumbers = new ArrayList<String> ();
+        purchaseOrderFileReader = new PurchaseOrderFileReader ();
+        supplierToPurchaseOrderNumbers = purchaseOrderFileReader.getPurchaseOrderNumbersBySupplier (selectedSupplierName);
+        return poNumbers;
+    }
+```
+
+All the codebase for this challenge is located within package `in.sandeep.SpringInterviewPro.parshvaHoldings`.
 

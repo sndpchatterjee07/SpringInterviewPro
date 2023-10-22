@@ -26,10 +26,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The type PurchaseOrderFileReader.
@@ -45,12 +42,12 @@ public class PurchaseOrderFileReader {
 
     private List<String> suppliers;
 
-    private Map<String, String> supplierToPurchaseOrderNumbersMap;
+    private List<String> supplierToPurchaseOrderNumbers;
 
     /**
      * Gets Supplier Names.
      *
-     * @return the Supplier Names
+     * @return the Unique Supplier Names
      * @throws IOException the IOException
      */
     public List<String> getSuppliers() throws IOException {
@@ -73,28 +70,29 @@ public class PurchaseOrderFileReader {
 
 
     /**
-     * Gets supplierToPurchaseOrderNumbersMap.
+     * Gets PurchaseOrderNumbersBySupplier.
      *
-     * @return the SupplierToPurchaseOrderNumbersMap
-     * @throws IOException the IOException
+     * @param selectedSupplierName the selected supplier name
+     * @return the purchase order numbers by supplier
+     * @throws IOException the io exception
      */
-    public Map<String, String> getPurchaseOrderNumbersBySupplier() throws IOException {
+    public List<String> getPurchaseOrderNumbersBySupplier(String selectedSupplierName) throws IOException {
 
         InputStream inputStream = new FileInputStream ("/home/sandeep/11_Repositories/intellij-idea-workspace/SpringInterviewPro/src/main/resources/static/assets/export29913_FINAL.xls");
-        suppliers = new ArrayList<String> ();
-        supplierToPurchaseOrderNumbersMap = new HashMap<String, String> ();
-
         Workbook workbook = new HSSFWorkbook (inputStream);
         HSSFSheet sheet = (HSSFSheet) workbook.getSheetAt (0);
+        supplierToPurchaseOrderNumbers = new ArrayList<> ();
+
         for (Row row : sheet) { // For each Row.
-            Cell cell = row.getCell (supplierColumnIndex); // Get the cell at the Supplier Index/Column.
-            if (!suppliers.contains (cell.getStringCellValue ())) {
-                suppliers.add (cell.getStringCellValue ());
-                supplierToPurchaseOrderNumbersMap.put (cell.getStringCellValue (), row.getCell (purchaseOrderNumberColumnIndex).getStringCellValue ());
+            Cell supplierCell = row.getCell (supplierColumnIndex);
+            Cell PONumberCell = row.getCell (purchaseOrderNumberColumnIndex);
+
+            if (supplierCell.getStringCellValue ().equals (selectedSupplierName)) {
+                supplierToPurchaseOrderNumbers.add (selectedSupplierName + "  =>  " + PONumberCell.getStringCellValue ());
             }
         }
         workbook.close ();
         inputStream.close ();
-        return supplierToPurchaseOrderNumbersMap;
+        return supplierToPurchaseOrderNumbers;
     }
 }

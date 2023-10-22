@@ -18,7 +18,7 @@
 package in.sandeep.SpringInterviewPro.parshvaHoldings.model;
 
 import java.util.List;
-import java.util.Map;
+
 
 /**
  * The type Docket.
@@ -44,10 +44,12 @@ public class Docket {
     private List<String> supplierName;
 
 
-    private Map<String, String> purchaseOrder;
+    private List<String> purchaseOrders;
 
 
     // ACCESSORS & MUTATORS.
+
+
     public String getName() {
         return name;
     }
@@ -96,13 +98,14 @@ public class Docket {
         this.supplierName = supplierName;
     }
 
-    public Map<String, String> getPurchaseOrder() {
-        return purchaseOrder;
+    public List<String> getPurchaseOrders() {
+        return purchaseOrders;
     }
 
-    public void setPurchaseOrder(Map<String, String> purchaseOrder) {
-        this.purchaseOrder = purchaseOrder;
+    public void setPurchaseOrders(List<String> purchaseOrders) {
+        this.purchaseOrders = purchaseOrders;
     }
+
 
     @Override
     public String toString() {
@@ -113,7 +116,7 @@ public class Docket {
                 ", hoursWorked=" + hoursWorked +
                 ", ratePerHour=" + ratePerHour +
                 ", supplierName=" + supplierName +
-                ", purchaseOrder=" + purchaseOrder +
+                ", purchaseOrders=" + purchaseOrders +
                 '}';
     }
 }
