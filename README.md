@@ -25,8 +25,18 @@ git clone https://github.com/sndpchatterjee07/SpringInterviewPro.git
 
 - **Solution**
 
-  - Rest API Endpoint : `http://localhost:8080/getDocketCreationForm`
-    
+  - Rest API Endpoint to access the **Docket Creation Form**: `http://localhost:8080/getDocketCreationForm`
+
+    ![Screenshot from 2023-10-24 03-28-58](https://github.com/sndpchatterjee07/SpringInterviewPro/assets/3818950/dbb0d03a-b8de-41a4-a610-e06bde7ee014)
+
+
+
+  - List of **Dockets** saved in **MongoDB** Database:
+ 
+    ![docket-list](https://github.com/sndpchatterjee07/SpringInterviewPro/assets/3818950/afe7a087-8333-4506-b9af-0c69cce8d940)
+
+
+
   ```
   InputStream inputStream = new FileInputStream ("/resources/static/assets/export29913_FINAL.xls");
   
