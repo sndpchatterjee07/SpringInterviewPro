@@ -17,6 +17,8 @@
  */
 package in.sandeep.SpringInterviewPro.parshvaHoldings.model;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
+
 import java.util.List;
 
 
@@ -44,11 +46,10 @@ public class Docket {
     private List<String> supplierName;
 
 
-    private List<String> purchaseOrders;
+    private ArrayNode purchaseOrders;
 
 
     // ACCESSORS & MUTATORS.
-
 
     public String getName() {
         return name;
@@ -98,11 +99,11 @@ public class Docket {
         this.supplierName = supplierName;
     }
 
-    public List<String> getPurchaseOrders() {
+    public ArrayNode getPurchaseOrders() {
         return purchaseOrders;
     }
 
-    public void setPurchaseOrders(List<String> purchaseOrders) {
+    public void setPurchaseOrders(ArrayNode purchaseOrders) {
         this.purchaseOrders = purchaseOrders;
     }
 

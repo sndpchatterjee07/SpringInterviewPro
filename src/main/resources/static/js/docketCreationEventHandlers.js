@@ -19,19 +19,10 @@ function getSelectedSupplier(supplier){
 
       var response = xhr.responseText;
 
-      //alert(response); // This response is the PO Number corresponding to the selected Supplier.
+      var jsonResponse = JSON.parse(response);
 
-      var selectField = document.getElementById('selectpurchaseOrder');
+      console.log(jsonResponse); // This response is the PO Number corresponding to the selected Supplier.
 
-      //alert(selectField.options.length);
-
-      // Loop through the options and select the one that matches the new value
-      /*for (var i = 0; i < selectField.options.length; i++) {
-          if (selectField.options[i].value === newValue) {
-              selectField.options[i].selected = true;
-              break;
-          }
-      }*/
     }
   };
   // Send the GET request

@@ -17,6 +17,7 @@
  */
 package in.sandeep.SpringInterviewPro.parshvaHoldings.utility;
 
+import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -45,7 +46,7 @@ public class PurchaseOrderFileReader {
     private List<String> supplierToPurchaseOrderNumbers;
 
     /**
-     * Gets Supplier Names.
+     * Gets Unique Supplier Names.
      *
      * @return the Unique Supplier Names
      * @throws IOException the IOException
@@ -54,10 +55,15 @@ public class PurchaseOrderFileReader {
 
         InputStream inputStream = new FileInputStream ("/home/sandeep/11_Repositories/intellij-idea-workspace/SpringInterviewPro/src/main/resources/static/assets/export29913_FINAL.xls");
         suppliers = new ArrayList<String> ();
-
         Workbook workbook = new HSSFWorkbook (inputStream);
         HSSFSheet sheet = (HSSFSheet) workbook.getSheetAt (0);
-        for (Row row : sheet) { // For each Row.
+
+        Iterator<Row> hssfRowIterator = sheet.rowIterator ();
+        while (hssfRowIterator.hasNext ()) {
+            HSSFRow row = (HSSFRow) hssfRowIterator.next ();
+            if (row.getRowNum () == 0) {
+                continue;   // Skip the row if row number is 0, since we do not want the top row to be included which is labelled "Supplier"
+            }
             Cell cell = row.getCell (supplierColumnIndex); // Get the cell at the Supplier Index/Column.
             if (!suppliers.contains (cell.getStringCellValue ())) {
                 suppliers.add (cell.getStringCellValue ());
