@@ -25,6 +25,8 @@ git clone https://github.com/sndpchatterjee07/SpringInterviewPro.git
 
 - **Solution**
 
+  - All the codebase for this challenge is located within package `in.sandeep.SpringInterviewPro.parshvaHoldings`.
+
   - Rest API Endpoint to access the **Docket Creation Form**: `http://localhost:8080/getDocketCreationForm`
 
     ![Screenshot from 2023-10-24 03-28-58](https://github.com/sndpchatterjee07/SpringInterviewPro/assets/3818950/dbb0d03a-b8de-41a4-a610-e06bde7ee014)
@@ -36,6 +38,7 @@ git clone https://github.com/sndpchatterjee07/SpringInterviewPro.git
     ![docket-list](https://github.com/sndpchatterjee07/SpringInterviewPro/assets/3818950/afe7a087-8333-4506-b9af-0c69cce8d940)
 
 
+**Java Code to present the Docket Creation Form:**
 
   ```
   InputStream inputStream = new FileInputStream ("/resources/static/assets/export29913_FINAL.xls");
@@ -61,7 +64,9 @@ git clone https://github.com/sndpchatterjee07/SpringInterviewPro.git
     }
   ``` 
 
- - Handle the asynchronous request to get the PONumber for the selected Supplier. 
+
+**Java Code to handle the asynchronous request to get the PO number for the selected Supplier as a JSON Array:** 
+
 
 ```
 var url = "http://localhost:8080/getPONumber";
@@ -89,6 +94,4 @@ xhr.send();
         return jsonArrayOfPONumbers;
     }
 ```
-
-All the codebase for this challenge is located within package `in.sandeep.SpringInterviewPro.parshvaHoldings`.
 
