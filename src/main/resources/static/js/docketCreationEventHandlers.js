@@ -21,8 +21,16 @@ function getSelectedSupplier(supplier){
 
       var jsonResponse = JSON.parse(response);
 
-      console.log(jsonResponse); // This response is the PO Number corresponding to the selected Supplier.
+      console.log(jsonResponse); // This response is the PO Number corresponding to the selected Supplier, correctly as expected.
 
+      /*var selectField = document.getElementById("selectpurchaseOrder");
+
+      jsonResponse.forEach(function () {
+              var option = document.createElement("option");
+              option.value = this.id;
+              option.text =  this.text;
+              selectField.appendChild(option);
+      });*/
     }
   };
   // Send the GET request

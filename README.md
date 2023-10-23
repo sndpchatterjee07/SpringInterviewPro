@@ -65,17 +65,19 @@ xhr.send();
 /**
      * Handle the asynchronous request to get the PONumber for the selected Supplier.
      *
-     * @param param1 the selected Supplier.
-     * @return the list of PONumbers
-     * @throws IOException the IOException
+     * @param param1 The selected Supplier.
+     * @return The list of PONumbers as a JSON Array.
+     * @throws IOException The IOException
      */
     @RequestMapping(value = "/getPONumber", method = RequestMethod.GET)
-    public List<String> getPONumber(@QueryParam("param1") String param1) throws IOException {
+    public ArrayNode getPONumber(@QueryParam("param1") String param1) throws IOException {
         String selectedSupplierName = param1;
-        List<String> poNumbers = new ArrayList<String> ();
+        ObjectMapper mapper = new ObjectMapper ();
         purchaseOrderFileReader = new PurchaseOrderFileReader ();
         supplierToPurchaseOrderNumbers = purchaseOrderFileReader.getPurchaseOrderNumbersBySupplier (selectedSupplierName);
-        return poNumbers;
+        ArrayNode jsonArrayOfPONumbers = mapper.valueToTree (supplierToPurchaseOrderNumbers);
+
+        return jsonArrayOfPONumbers;
     }
 ```
 
