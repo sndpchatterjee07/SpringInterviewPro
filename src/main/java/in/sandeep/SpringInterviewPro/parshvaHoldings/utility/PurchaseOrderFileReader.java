@@ -41,6 +41,8 @@ public class PurchaseOrderFileReader {
 
     private final Integer purchaseOrderNumberColumnIndex = 3;
 
+    private final Integer decriptionColumnIndex = 15;
+
     private List<String> suppliers;
 
     private List<String> supplierToPurchaseOrderNumbers;
@@ -92,9 +94,10 @@ public class PurchaseOrderFileReader {
         for (Row row : sheet) { // For each Row.
             Cell supplierCell = row.getCell (supplierColumnIndex);
             Cell PONumberCell = row.getCell (purchaseOrderNumberColumnIndex);
+            Cell decriptionCell = row.getCell (decriptionColumnIndex);
 
             if (supplierCell.getStringCellValue ().equals (selectedSupplierName)) {
-                supplierToPurchaseOrderNumbers.add (selectedSupplierName + "  =>  " + PONumberCell.getStringCellValue ());
+                supplierToPurchaseOrderNumbers.add (selectedSupplierName + "  =>  " + PONumberCell.getStringCellValue () + "  =>  " + decriptionCell.getStringCellValue ());
             }
         }
         workbook.close ();

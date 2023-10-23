@@ -28,6 +28,7 @@ import java.util.List;
  * @author sandeep
  * @version 1.0
  */
+
 public class Docket {
 
     private String name;
@@ -43,13 +44,13 @@ public class Docket {
     private Double ratePerHour;
 
 
-    private List<String> supplierName;
+    private String supplierName;
 
-
-    private ArrayNode purchaseOrders;
+    private String purchaseOrders;
 
 
     // ACCESSORS & MUTATORS.
+
 
     public String getName() {
         return name;
@@ -91,19 +92,19 @@ public class Docket {
         this.ratePerHour = ratePerHour;
     }
 
-    public List<String> getSupplierName() {
+    public String getSupplierName() {
         return supplierName;
     }
 
-    public void setSupplierName(List<String> supplierName) {
+    public void setSupplierName(String supplierName) {
         this.supplierName = supplierName;
     }
 
-    public ArrayNode getPurchaseOrders() {
+    public String getPurchaseOrders() {
         return purchaseOrders;
     }
 
-    public void setPurchaseOrders(ArrayNode purchaseOrders) {
+    public void setPurchaseOrders(String purchaseOrders) {
         this.purchaseOrders = purchaseOrders;
     }
 
@@ -116,8 +117,8 @@ public class Docket {
                 ", endTime='" + endTime + '\'' +
                 ", hoursWorked=" + hoursWorked +
                 ", ratePerHour=" + ratePerHour +
-                ", supplierName=" + supplierName +
-                ", purchaseOrders=" + purchaseOrders +
+                ", supplierName='" + supplierName + '\'' +
+                ", purchaseOrders='" + purchaseOrders + '\'' +
                 '}';
     }
 }

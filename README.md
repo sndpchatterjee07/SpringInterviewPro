@@ -42,11 +42,10 @@ git clone https://github.com/sndpchatterjee07/SpringInterviewPro.git
         suppliers = purchaseOrderFileReader.getSuppliers ();
 
         docket = new Docket ();
-        docket.setSupplierName (suppliers);
 
         modelAndView.setViewName ("create_docket");
         modelAndView.addObject ("docketInfo", docket);
-        modelAndView.addObject ("suppliers", docket.getSupplierName ());
+        modelAndView.addObject ("suppliers", suppliers);
 
         return modelAndView;
     }

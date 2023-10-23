@@ -19,8 +19,14 @@ package in.sandeep.SpringInterviewPro.parshvaHoldings.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import in.sandeep.SpringInterviewPro.parshvaHoldings.model.Docket;
 import in.sandeep.SpringInterviewPro.parshvaHoldings.utility.PurchaseOrderFileReader;
+import jakarta.servlet.http.HttpServletRequest;
+import org.bson.Document;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -29,6 +35,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import com.google.gson.Gson;
+
 
 import javax.ws.rs.QueryParam;
 import java.io.IOException;
@@ -55,6 +63,8 @@ public class RoutingController implements ErrorController {
 
     private Docket docket;
 
+    private final String connectionString = "mongodb+srv://RoomBookingAdmin:EGPm7N16AQXe2Lcw@cluster0.sp97mmv.mongodb.net";
+
 
     /**
      * Gets Docket Creation Form.
@@ -68,11 +78,10 @@ public class RoutingController implements ErrorController {
         suppliers = purchaseOrderFileReader.getSuppliers ();
 
         docket = new Docket ();
-        docket.setSupplierName (suppliers);
 
         modelAndView.setViewName ("create_docket");
         modelAndView.addObject ("docketInfo", docket);
-        modelAndView.addObject ("suppliers", docket.getSupplierName ());
+        modelAndView.addObject ("suppliers", suppliers);
 
         return modelAndView;
     }
@@ -89,14 +98,53 @@ public class RoutingController implements ErrorController {
     }
 
     /**
-     * Create Docket.
+     * Create Docket and insert in MongoDB Database.
      *
      * @param docketInfo the docketInfo
      */
     @RequestMapping(value = "/createDocket", method = RequestMethod.POST)
-    public void createDocket(@ModelAttribute Docket docketInfo) {
-        modelAndView.addObject ("docketInfo", docketInfo);
-        //System.out.println (docketInfo.getStartTime ());
+    public ModelAndView createDocket(HttpServletRequest httpServletRequest) {
+
+        // 1. FETCH THE FORM FIELDS...
+
+        String name = httpServletRequest.getParameter ("name");
+
+        String startTime = httpServletRequest.getParameter ("startTime");
+
+        String endTime = httpServletRequest.getParameter ("endTime");
+
+        Double hoursWorked = Double.parseDouble (httpServletRequest.getParameter ("hoursWorked"));
+
+        Double ratePerHour = Double.parseDouble (httpServletRequest.getParameter ("ratePerHour"));
+
+        String supplierName = httpServletRequest.getParameter ("supplierName");
+
+        String purchaseOrders = httpServletRequest.getParameter ("purchaseOrders");
+
+
+        // 2. POPULATE DOCKET TYPE TO BE SAVED IN THE DATABASE.
+        docket.setName (name);
+        docket.setStartTime (startTime);
+        docket.setEndTime (endTime);
+        docket.setHoursWorked (hoursWorked);
+        docket.setRatePerHour (ratePerHour);
+        docket.setSupplierName (supplierName);
+        docket.setPurchaseOrders (purchaseOrders);
+
+
+        // 3. CONNECT TO MONGODB CLIENT.
+        MongoClient mongoClient = MongoClients.create (connectionString);
+        MongoDatabase database = mongoClient.getDatabase ("RoomBookingSystem");
+        MongoCollection<Document> collection = database.getCollection ("Dockets");
+
+        // 4. INSERT THE DOCKET.
+        Gson gson = new Gson ();  // Deserialize Docket object to Json String
+        String json = gson.toJson (docket);
+        Document document = Document.parse (json); // Parse to bson document and insert
+        collection.insertOne (document);
+
+        modelAndView.setViewName ("docket_creation_success");
+        return modelAndView;
     }
 
 

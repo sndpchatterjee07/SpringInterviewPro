@@ -21,16 +21,17 @@ function getSelectedSupplier(supplier){
 
       var jsonResponse = JSON.parse(response);
 
-      console.log(jsonResponse); // This response is the PO Number corresponding to the selected Supplier, correctly as expected.
+      //console.log(jsonResponse); // This response is the PO Number corresponding to the selected Supplier, correctly as expected.
 
-      /*var selectField = document.getElementById("selectpurchaseOrder");
+      var selectField = document.getElementById("selectpurchaseOrder");
 
-      jsonResponse.forEach(function () {
-              var option = document.createElement("option");
-              option.value = this.id;
-              option.text =  this.text;
-              selectField.appendChild(option);
-      });*/
+      for (var i = 0; i < jsonResponse.length; i++) {
+          var item = jsonResponse[i];
+          var option = document.createElement("option");
+          option.value = jsonResponse[i];
+          option.text =  jsonResponse[i];
+          selectField.appendChild(option);
+      }
     }
   };
   // Send the GET request
