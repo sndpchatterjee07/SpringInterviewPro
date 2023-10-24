@@ -25,6 +25,12 @@ function getSelectedSupplier(supplier){
 
       var selectField = document.getElementById("selectpurchaseOrder");
 
+      // Remove the previously populated Purchase Order Dropdown values.
+      while (selectField.firstChild) {
+        selectpurchaseOrder.removeChild(selectpurchaseOrder.firstChild);
+      }
+
+      // Populate the Purchase Order Dropdown with the currently selected Supplier.
       for (var i = 0; i < jsonResponse.length; i++) {
           var item = jsonResponse[i];
           var option = document.createElement("option");

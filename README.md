@@ -73,7 +73,11 @@ var url = "http://localhost:8080/getPONumber";
 var param = "param1="+supplier;
 url = url + "?" + param;
 xhr.open("GET", url, true);
-...
+
+xhr.onreadystatechange = function() {
+   ...
+}   
+
 xhr.send();
 
 /**
