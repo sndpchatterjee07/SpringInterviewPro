@@ -38,6 +38,14 @@ git clone https://github.com/sndpchatterjee07/SpringInterviewPro.git
     ![docket-list](https://github.com/sndpchatterjee07/SpringInterviewPro/assets/3818950/afe7a087-8333-4506-b9af-0c69cce8d940)
 
 
+  - Rest API Endpoint to view all **Dockets** saved in database: `http://localhost:8080/viewDockets`
+ 
+    ![img](https://github.com/sndpchatterjee07/SpringInterviewPro/assets/3818950/c19d31c0-dffc-4b43-ab6a-f5ee42e1df0c)
+
+     
+  
+
+
 **Java Code to present the Docket Creation Form:**
 
   ```
