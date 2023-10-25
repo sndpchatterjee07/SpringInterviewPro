@@ -37,6 +37,8 @@ import java.util.*;
  */
 public class PurchaseOrderFileReader {
 
+    private final String pathToPurchaseOrderFile = "/home/sandeep/11_Repositories/intellij-idea-workspace/SpringInterviewPro/src/main/resources/static/assets/export29913_FINAL.xls";
+
     private final Integer supplierColumnIndex = 11;
 
     private final Integer purchaseOrderNumberColumnIndex = 3;
@@ -55,7 +57,7 @@ public class PurchaseOrderFileReader {
      */
     public List<String> getSuppliers() throws IOException {
 
-        InputStream inputStream = new FileInputStream ("/home/sandeep/11_Repositories/intellij-idea-workspace/SpringInterviewPro/src/main/resources/static/assets/export29913_FINAL.xls");
+        InputStream inputStream = new FileInputStream (pathToPurchaseOrderFile);
         suppliers = new ArrayList<String> ();
         Workbook workbook = new HSSFWorkbook (inputStream);
         HSSFSheet sheet = (HSSFSheet) workbook.getSheetAt (0);
@@ -86,7 +88,7 @@ public class PurchaseOrderFileReader {
      */
     public List<String> getPurchaseOrderNumbersBySupplier(String selectedSupplierName) throws IOException {
 
-        InputStream inputStream = new FileInputStream ("/home/sandeep/11_Repositories/intellij-idea-workspace/SpringInterviewPro/src/main/resources/static/assets/export29913_FINAL.xls");
+        InputStream inputStream = new FileInputStream (pathToPurchaseOrderFile);
         Workbook workbook = new HSSFWorkbook (inputStream);
         HSSFSheet sheet = (HSSFSheet) workbook.getSheetAt (0);
         supplierToPurchaseOrderNumbers = new ArrayList<> ();
