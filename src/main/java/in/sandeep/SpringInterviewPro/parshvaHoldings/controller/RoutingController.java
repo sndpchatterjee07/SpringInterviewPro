@@ -19,10 +19,7 @@ package in.sandeep.SpringInterviewPro.parshvaHoldings.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.*;
 import in.sandeep.SpringInterviewPro.parshvaHoldings.model.Docket;
 import in.sandeep.SpringInterviewPro.parshvaHoldings.utility.PurchaseOrderFileReader;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,6 +38,7 @@ import com.google.gson.Gson;
 import javax.ws.rs.QueryParam;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -164,5 +162,31 @@ public class RoutingController implements ErrorController {
         ArrayNode jsonArrayOfPONumbers = mapper.valueToTree (supplierToPurchaseOrderNumbers);
 
         return jsonArrayOfPONumbers;
+    }
+
+    /**
+     * Gets Dockets.
+     *
+     * @return the Dockets
+     */
+    @RequestMapping(value = "/viewDockets", method = RequestMethod.GET)
+    public void getDockets() {
+        modelAndView.setViewName ("show_dockets");
+
+        MongoClient mongoClient = MongoClients.create (connectionString);
+        MongoDatabase database = mongoClient.getDatabase ("RoomBookingSystem");
+        MongoCollection<Document> collection = database.getCollection ("Dockets");
+
+        // Retrieve all documents
+        MongoCursor<Document> cursor = collection.find ().iterator ();
+        try {
+            while (cursor.hasNext ()) {
+                Document document = cursor.next ();
+                System.out.println (document.toJson ());
+            }
+        } finally {
+            cursor.close ();
+        }
+        mongoClient.close (); // Close the MongoDB connection
     }
 }
