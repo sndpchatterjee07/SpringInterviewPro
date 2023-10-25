@@ -13,7 +13,7 @@ Welcome to SpringInterviewPro, your one-stop resource for mastering Java Spring 
 
 ## Getting Started
 
-To get started with SpringInterviewPro, simply clone this repository to your local machine.
+To get started with `SpringInterviewPro`, simply clone this repository to your local machine.
 
 ```
 git clone https://github.com/sndpchatterjee07/SpringInterviewPro.git
