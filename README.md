@@ -21,5 +21,5 @@ git clone https://github.com/sndpchatterjee07/SpringInterviewPro.git
 
 ## Challenges
 
-- [Parshva Screening Challenge](/application-specific-readme/ParshvaScreeningChallenge.md)
+- [Parshva Screening Challenge](/application-specific-readme/ParshvaScreeningChallenge.md)  _Status:_ **SOLVED**
 
