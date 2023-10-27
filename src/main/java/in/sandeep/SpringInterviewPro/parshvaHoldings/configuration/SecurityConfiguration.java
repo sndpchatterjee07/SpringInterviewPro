@@ -36,7 +36,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration {
 
 
-/**
+    /**
      * Application Security Filter Chain.
      *
      * @param httpSecurity the http security

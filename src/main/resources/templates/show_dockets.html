@@ -27,13 +27,27 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Docket Creation Status</title>
+    <title>View Dockets</title>
 </head>
 <body>
-<h1 align="center"> Docket Created Successfully!</h1>
 
 <div class="container text-center my-5">
-    <a href="/getDocketCreationForm" class="btn btn-primary">Create Another Docket</a>
+    <h3 align="center">Dockets</h3>
+    <a href="/getDocketCreationForm" class="btn btn-primary">Create a Docket</a>
 </div>
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th>Name</th>
+        <th>Supplier Name</th>
+        <th>Purchase Orders</th>
+    </tr>
+    </thead>
+    <tr th:each="docket : ${dockets}">
+        <td th:text="${docket.name}"></td>
+        <td th:text="${docket.supplierName}"></td>
+        <td th:text="${docket.purchaseOrders}"></td>
+    </tr>
+</table>
 </body>
 </html>

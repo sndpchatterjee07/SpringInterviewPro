@@ -21,13 +21,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.mongodb.client.*;
 import in.sandeep.SpringInterviewPro.parshvaHoldings.model.Docket;
+import in.sandeep.SpringInterviewPro.parshvaHoldings.repository.DocketRepository;
 import in.sandeep.SpringInterviewPro.parshvaHoldings.utility.PurchaseOrderFileReader;
 import jakarta.servlet.http.HttpServletRequest;
 import org.bson.Document;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,10 +36,9 @@ import com.google.gson.Gson;
 
 import javax.ws.rs.QueryParam;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+import java.util.ListIterator;
+
 
 /**
  * The type RoutingController.
@@ -63,6 +61,11 @@ public class RoutingController implements ErrorController {
 
     private final String connectionString = "mongodb+srv://RoomBookingAdmin:EGPm7N16AQXe2Lcw@cluster0.sp97mmv.mongodb.net";
 
+    @Autowired
+    private DocketRepository docketRepository;
+
+    private List<Docket> dockets;
+
 
     /**
      * Gets Docket Creation Form.
@@ -74,9 +77,7 @@ public class RoutingController implements ErrorController {
     public ModelAndView getDocketCreationPage() throws IOException {
         purchaseOrderFileReader = new PurchaseOrderFileReader ();
         suppliers = purchaseOrderFileReader.getSuppliers ();
-
         docket = new Docket ();
-
         modelAndView.setViewName ("create_docket");
         modelAndView.addObject ("docketInfo", docket);
         modelAndView.addObject ("suppliers", suppliers);
@@ -170,23 +171,10 @@ public class RoutingController implements ErrorController {
      * @return the Dockets
      */
     @RequestMapping(value = "/viewDockets", method = RequestMethod.GET)
-    public void getDockets() {
+    public ModelAndView getDockets() {
         modelAndView.setViewName ("show_dockets");
-
-        MongoClient mongoClient = MongoClients.create (connectionString);
-        MongoDatabase database = mongoClient.getDatabase ("RoomBookingSystem");
-        MongoCollection<Document> collection = database.getCollection ("Dockets");
-
-        // Retrieve all documents
-        MongoCursor<Document> cursor = collection.find ().iterator ();
-        try {
-            while (cursor.hasNext ()) {
-                Document document = cursor.next ();
-                System.out.println (document.toJson ());
-            }
-        } finally {
-            cursor.close ();
-        }
-        mongoClient.close (); // Close the MongoDB connection
+        dockets = docketRepository.findAll ();
+        modelAndView.addObject ("dockets", dockets);
+        return modelAndView;
     }
 }

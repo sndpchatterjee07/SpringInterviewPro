@@ -20,9 +20,6 @@ package in.sandeep.SpringInterviewPro;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
-import org.springframework.boot.autoconfigure.data.mongo.MongoRepositoriesAutoConfiguration;
-import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
 /**
@@ -32,7 +29,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
  * @version 1.0
  */
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
-@EnableAutoConfiguration(exclude = {MongoAutoConfiguration.class, MongoRepositoriesAutoConfiguration.class, MongoDataAutoConfiguration.class})
+@EnableAutoConfiguration
 public class SpringInterviewProApplication {
     public static void main(String[] args) {
         SpringApplication.run (SpringInterviewProApplication.class, args);

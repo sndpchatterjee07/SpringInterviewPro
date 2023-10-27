@@ -18,6 +18,8 @@
 package in.sandeep.SpringInterviewPro.parshvaHoldings.model;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
@@ -29,8 +31,11 @@ import java.util.List;
  * @version 1.0
  */
 
+@Document(collection = "Dockets")
 public class Docket {
 
+    @Id
+    private String id;
     private String name;
 
     private String startTime;
@@ -51,6 +56,14 @@ public class Docket {
 
     // ACCESSORS & MUTATORS.
 
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -108,11 +121,11 @@ public class Docket {
         this.purchaseOrders = purchaseOrders;
     }
 
-
     @Override
     public String toString() {
         return "Docket{" +
-                "name='" + name + '\'' +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
                 ", startTime='" + startTime + '\'' +
                 ", endTime='" + endTime + '\'' +
                 ", hoursWorked=" + hoursWorked +
